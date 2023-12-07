@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import dynamic from "next/dynamic";
 
+import { ViewerProps, EditorProps } from "@toast-ui/react-editor";
+
 const TuiViewer = dynamic(() => import("./TuiWrap").then((m) => m.TuiViewer), {
   ssr: false,
 });
@@ -10,11 +12,11 @@ const TuiEditor = dynamic(() => import("./TuiWrap").then((m) => m.TuiEditor), {
   ssr: false,
 });
 
-const ForwardViewer = forwardRef((props, ref) => (
+const ForwardViewer = forwardRef<ViewerProps>((props, ref) => (
   <TuiViewer {...props} forwardedRef={ref} />
 ));
 
-const ForwardEditor = forwardRef((props, ref) => (
+const ForwardEditor = forwardRef<EditorProps>((props, ref) => (
   <TuiEditor {...props} forwardedRef={ref} />
 ));
 
