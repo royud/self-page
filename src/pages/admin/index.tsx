@@ -190,9 +190,9 @@ const Journal = () => {
     title: string;
     description: string;
   }>({
-    id: 0
+    id: 0,
     title: "",
-    description: ""
+    description: "",
   });
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -237,7 +237,7 @@ const Journal = () => {
   }, [selectJournal]);
 
   const submit = async () => {
-    if(selectJournal){
+    if (selectJournal) {
       if (!selectJournal.id) {
         await fetch("/api/admin/journal/post", {
           method: "POST",
@@ -260,7 +260,6 @@ const Journal = () => {
         }).then(() => alert("완료되었습니다."));
       }
     }
-
   };
 
   return (
