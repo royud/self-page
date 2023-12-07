@@ -111,7 +111,10 @@ const Nav = styled.ul`
   height: 100%;
 `;
 
-const StyledList = styled.li<{ $navbar: number; $isactivelist: boolean }>`
+const StyledList = styled.li<{
+  $navbar: number | undefined;
+  $isactivelist: boolean;
+}>`
   cursor: pointer;
   font-size: 19px;
   text-align: center;
