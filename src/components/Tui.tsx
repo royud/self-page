@@ -25,7 +25,7 @@ const ForwardEditor = forwardRef<EditorProps>(function ForwardEditor(
 ) {
   return <TuiEditor {...props} forwardedRef={ref} />;
 });
-
+1;
 type ViewerContainerProps = { content: string };
 
 type EditorContainerProps = {
@@ -34,7 +34,7 @@ type EditorContainerProps = {
 };
 
 export const ViewerContainer = ({ content }: ViewerContainerProps) => {
-  const viewRef = useRef();
+  const viewRef = useRef<any>();
 
   useEffect(() => {
     viewRef.current?.getInstance().setMarkdown(content);
