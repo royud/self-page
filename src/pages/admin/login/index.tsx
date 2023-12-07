@@ -18,9 +18,9 @@ type LoginInputProps = {
   tryLogin: () => void;
 };
 
-const LoginInput = forwardRef(function LoginInput(
+const LoginInput = forwardRef<LoginInputProps, any>(function LoginInput(
   { label, type, value, setValue, tryLogin }: LoginInputProps,
-  ref
+  ref: React.Ref<any>
 ) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const onFocus = () => {
@@ -50,7 +50,7 @@ export default function AdminLogin() {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
 
-  const IdRef = createRef();
+  const IdRef = createRef<any>();
   const router = useRouter();
   useEffect(() => {
     IdRef.current.focus();
