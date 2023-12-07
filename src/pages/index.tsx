@@ -10,4 +10,5 @@ export default function Main() {
   useEffect(() => {
     router.push(ROUTE_PROJECTS);
   }, []);
+  return <></>;
 }
