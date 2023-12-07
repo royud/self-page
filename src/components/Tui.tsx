@@ -90,7 +90,7 @@ export const EditorContainer = ({
   }, [isSetting, value, postId]);
 
   const onChange = () => {
-    setValue(editorRef.current.getInstance().getMarkdown());
+    setValue(editorRef.current?.getInstance().getMarkdown());
   };
 
   return (
