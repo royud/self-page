@@ -40,8 +40,9 @@ export default async function handler(
     const profile = await profileCollection.findOne();
 
     const stackList = profile?.stack.join(", ");
-
-    profile && profile["stack"] = stackList;
+    if (profile) {
+      profile["stack"] = stackList;
+    }
 
     res.status(200).json(profile);
   }
