@@ -15,7 +15,12 @@ type InputWrapProps = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-type TextareaWrapProps = Pick<InputWrapProps, "label">;
+type TextareaWrapProps = {
+  label: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  postId: number;
+};
 
 type SelectWrapProps = {
   label: string;
