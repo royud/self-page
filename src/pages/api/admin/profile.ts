@@ -41,7 +41,7 @@ export default async function handler(
 
     const stackList = profile?.stack.join(", ");
 
-    profile["stack"] = stackList;
+    profile && profile["stack"] = stackList;
 
     res.status(200).json(profile);
   }
