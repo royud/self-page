@@ -142,7 +142,8 @@ const ModalContainer = ({
 export default function Log() {
   const [isActiveModal, setIsActiveModal] = useState<boolean>(false);
   const [nowModalId, setNowModalId] = useState<number>(0);
-  const [projectsData, setProjectsData] = useState();
+  const [projectsData, setProjectsData] =
+    useState<{ projectId: number; projectTitle: string }[]>();
 
   const ViewProject = (projectId: number) => {
     // 모달 활성화
