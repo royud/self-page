@@ -8,7 +8,12 @@ const EditorContainer = dynamic(
   () => import("@/components").then((m) => m.EditorContainer),
   { ssr: false }
 );
-type InputWrapProps = { label: string; type: string };
+type InputWrapProps = {
+  label: string;
+  type: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+};
 
 type TextareaWrapProps = Pick<InputWrapProps, "label">;
 
