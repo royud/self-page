@@ -12,15 +12,19 @@ const TuiEditor = dynamic(() => import("./TuiWrap").then((m) => m.TuiEditor), {
   ssr: false,
 });
 
-const ForwardViewer = forwardRef<ViewerProps>((props, ref) => (
-  <TuiViewer {...props} forwardedRef={ref} />
-));
-ForwardViewer.displayName = "ForwardViewer";
+const ForwardViewer = forwardRef<ViewerProps>(function ForwardViewer(
+  props,
+  ref
+) {
+  <TuiViewer {...props} forwardedRef={ref} />;
+});
 
-const ForwardEditor = forwardRef<EditorProps>((props, ref) => (
-  <TuiEditor {...props} forwardedRef={ref} />
-));
-ForwardEditor.displayName = "ForwardEditor";
+const ForwardEditor = forwardRef<EditorProps>(function ForwardEditor(
+  props,
+  ref
+) {
+  <TuiEditor {...props} forwardedRef={ref} />;
+});
 
 type ViewerContainerProps = { content: string };
 
