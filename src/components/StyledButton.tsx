@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 type StyledButtonProps = {
-  text: string;
+  children: string;
   type?: "primary" | "default";
   width?: number;
   height?: number;
@@ -9,7 +9,7 @@ type StyledButtonProps = {
 };
 
 export const StyledButton = ({
-  text,
+  children,
   type = "default",
   width,
   height,
@@ -22,7 +22,7 @@ export const StyledButton = ({
       width={width}
       height={height}
     >
-      {text}
+      {children}
     </StyledButtonWrap>
   );
 };
