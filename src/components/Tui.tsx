@@ -16,14 +16,14 @@ const ForwardViewer = forwardRef<ViewerProps>(function ForwardViewer(
   props,
   ref
 ) {
-  <TuiViewer {...props} forwardedRef={ref} />;
+  return <TuiViewer {...props} forwardedRef={ref} />;
 });
 
 const ForwardEditor = forwardRef<EditorProps>(function ForwardEditor(
   props,
   ref
 ) {
-  <TuiEditor {...props} forwardedRef={ref} />;
+  return <TuiEditor {...props} forwardedRef={ref} />;
 });
 
 type ViewerContainerProps = { content: string };
