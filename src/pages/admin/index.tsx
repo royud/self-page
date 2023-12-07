@@ -64,11 +64,16 @@ const Profile = () => {
 const Project = () => {
   const [projectList, setProjectList] = useState([]);
 
-  const [selectProject, setSelectProject] = useState({});
+  const [selectProject, setSelectProject] = useState<{
+    id: number;
+    year: number;
+    title: string;
+    description: string;
+  }>({});
 
-  const [year, setYear] = useState();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [year, setYear] = useState<number>(0);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   //프로젝트 리스트 호출
   useEffect(() => {
