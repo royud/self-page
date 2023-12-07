@@ -37,7 +37,7 @@ export default async function handler(
       completedYear: reqProject.year,
     };
 
-    projectsCollection.insertOne(newProject, (err) => {
+    projectsCollection.insertOne(newProject).then((err) => {
       err ? console.log(err) : client.close();
     });
 
