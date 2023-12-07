@@ -18,35 +18,33 @@ type LoginInputProps = {
   tryLogin: () => void;
 };
 
-const LoginInput = forwardRef(
-  (
-    { label, type, value, setValue, tryLogin }: LoginInputProps,
-    ref: ForwardedRef<HTMLInputElement>
-  ) => {
-    const [isFocus, setIsFocus] = useState<boolean>(false);
-    const onFocus = () => {
-      setIsFocus(true);
-    };
-    const onBlur = () => {
-      setIsFocus(false);
-    };
-    return (
-      <StyledLoginInput $isfocus={isFocus}>
-        <label htmlFor={label}>{label}</label>
-        <input
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={(e) => setValue(e.target.value)}
-          type={type}
-          id={label}
-          value={value}
-          ref={ref}
-          onKeyPress={({ key }) => key === "Enter" && tryLogin()}
-        />
-      </StyledLoginInput>
-    );
-  }
-);
+const LoginInput = forwardRef(function LoginInput(
+  { label, type, value, setValue, tryLogin }: LoginInputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) {
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+  const onFocus = () => {
+    setIsFocus(true);
+  };
+  const onBlur = () => {
+    setIsFocus(false);
+  };
+  return (
+    <StyledLoginInput $isfocus={isFocus}>
+      <label htmlFor={label}>{label}</label>
+      <input
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={(e) => setValue(e.target.value)}
+        type={type}
+        id={label}
+        value={value}
+        ref={ref}
+        onKeyPress={({ key }) => key === "Enter" && tryLogin()}
+      />
+    </StyledLoginInput>
+  );
+});
 
 export default function AdminLogin() {
   const [id, setId] = useState<string>("");
