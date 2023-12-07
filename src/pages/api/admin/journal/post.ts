@@ -30,10 +30,9 @@ export default async function handler(
 
     // 프로젝트 타이틀 추출
     const projects = await projectsCollection.find().toArray();
-    const projectTitle =
-      projects &&
-      projects.find((list) => list.projectId === reqJournal.projectId)
-        .projectTitle;
+    const projectTitle = projects.find(
+      (list) => list.projectId === reqJournal.projectId
+    )?.projectTitle;
 
     // 새로운 일지 id 생성
     const journals = await journalsCollection.find().toArray();
