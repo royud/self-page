@@ -60,19 +60,20 @@ export default async function handler(
   //일지 수정
   if (method === "PUT") {
     const reqProject = req.body;
-    projectsCollection.updateOne(
-      { projectId: reqProject.projectId },
-      {
-        $set: {
-          completedYear: Number(reqProject.year),
-          projectTitle: reqProject.title,
-          projectDescription: reqProject.description,
-        },
-      },
-      (err) => {
+    projectsCollection
+      .updateOne(
+        { projectId: reqProject.projectId },
+        {
+          $set: {
+            completedYear: Number(reqProject.year),
+            projectTitle: reqProject.title,
+            projectDescription: reqProject.description,
+          },
+        }
+      )
+      .then((err) => {
         err ? console.log(err) : client.close();
-      }
-    );
+      });
     res.status(200).json({ message: "정상적으로 수정되었습니다." });
   }
 }
