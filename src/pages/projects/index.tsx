@@ -62,7 +62,16 @@ const YearListContainer = ({ year, projects }: YearListProps) => {
 };
 
 export default function Projects() {
-  const [projectsData, setProjectsData] = useState();
+  const [projectsData, setProjectsData] = useState<
+    {
+      year: number;
+      projects: {
+        projectId: number;
+        projectTitle: string;
+        thumnail: string;
+      };
+    }[]
+  >();
   const projectListData = async () => {
     const data = await getProjectsData();
 
