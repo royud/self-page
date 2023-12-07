@@ -30,8 +30,6 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
-            as="style"
-            crossOrigin
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
           />
         </Head>
