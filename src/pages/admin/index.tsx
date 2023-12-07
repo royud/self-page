@@ -105,7 +105,7 @@ const Project = () => {
   }, [selectProject]);
 
   const submit = async () => {
-    if (selectProject.id === 0) {
+    if (selectProject && selectProject.id === 0) {
       await fetch("/api/admin/project/post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
