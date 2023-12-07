@@ -23,15 +23,16 @@ export default async function handler(
 
     reqProfile["stack"] = stackList;
 
-    profileCollection.updateOne(
-      {},
-      {
-        $set: reqProfile,
-      },
-      (err) => {
+    profileCollection
+      .updateOne(
+        {},
+        {
+          $set: reqProfile,
+        }
+      )
+      .then((err) => {
         err ? console.log(err) : client.close();
-      }
-    );
+      });
     res.status(200).json({ message: "정상적으로 수정되었습니다." });
   }
   if (method === "GET") {
