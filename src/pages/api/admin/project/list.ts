@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
 
 type Data = {
-  projectId: number;
-  projectTitle: string;
+  id: number;
+  title: string;
 };
 
 export default async function handler(
