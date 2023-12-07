@@ -192,7 +192,7 @@ const Wrap = styled.div<{ $nowmodalid: number }>`
     font-weight: bold;
     border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
     margin-bottom: 20px;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.mainTextColor};
   }
   .projectList:nth-child(${({ $nowmodalid }) => $nowmodalid}) {
     color: ${({ theme }) => theme.colors.mainColor};
@@ -207,7 +207,7 @@ const StyledProjectList = styled.li<{ $isactive: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
   margin-bottom: 20px;
   color: ${({ $isactive, theme }) =>
-    $isactive ? theme.colors.mainColor : theme.colors.black};
+    $isactive ? theme.colors.mainColor : theme.colors.mainTextColor};
 `;
 
 const StyledModal = styled.div<{ $isactive: boolean }>`
