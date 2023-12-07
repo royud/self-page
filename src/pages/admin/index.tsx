@@ -105,27 +105,29 @@ const Project = () => {
   }, [selectProject]);
 
   const submit = async () => {
-    if (selectProject && selectProject.id === 0) {
-      await fetch("/api/admin/project/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          year: year,
-          title: title,
-          description: description,
-        }),
-      }).then(() => alert("완료되었습니다."));
-    } else {
-      await fetch("/api/admin/project/post", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          projectId: selectProject.id,
-          year: year,
-          title: title,
-          description: description,
-        }),
-      }).then(() => alert("완료되었습니다."));
+    if (selectProject) {
+      if (selectProject.id === 0) {
+        await fetch("/api/admin/project/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            year: year,
+            title: title,
+            description: description,
+          }),
+        }).then(() => alert("완료되었습니다."));
+      } else {
+        await fetch("/api/admin/project/post", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            projectId: selectProject.id,
+            year: year,
+            title: title,
+            description: description,
+          }),
+        }).then(() => alert("완료되었습니다."));
+      }
     }
   };
 
