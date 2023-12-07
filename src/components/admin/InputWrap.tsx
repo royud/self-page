@@ -25,20 +25,9 @@ type TextareaWrapProps = {
 type SelectWrapProps = {
   label: string;
   addList: boolean;
-  selectList: {
-    id: number;
-    title: string;
-  }[];
-  value: {
-    id: number;
-    title: string;
-  };
-  setValue: React.Dispatch<
-    React.SetStateAction<{
-      id: number;
-      title: string;
-    }>
-  >;
+  selectList: any[];
+  value: any[];
+  setValue: React.Dispatch<any>;
 };
 
 export const SelectWrap = ({
