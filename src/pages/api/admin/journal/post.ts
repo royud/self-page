@@ -46,9 +46,9 @@ export default async function handler(
       projectTitle: projectTitle,
     };
 
-    journalsCollection.insertOne(newJournal, <InsertOneOptions>(err: any) => {
+    journalsCollection.insertOne(newJournal, (err: any) => {
       err ? console.log(err) : client.close();
-    });
+    } as InsertOneOptions);
 
     res.status(200).json({ message: "정상적으로 추가되었습니다." });
   }
