@@ -2,11 +2,19 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { MongoClient } from "mongodb";
 
-type Data = { message: string };
+type MessageData = { message: string };
+
+type Data = {
+  projectId: number;
+  journalId: number;
+  journalDescription: string;
+  journalTitle: string;
+  projectTitle: string;
+};
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<MessageData, Data>
 ) {
   const journalId = Number(req.query.journalid);
 
@@ -69,18 +77,19 @@ export default async function handler(
   if (method === "PUT") {
     const reqJournal = req.body;
 
-    journalsCollection.updateOne(
-      { journalId: reqJournal.journalId },
-      {
-        $set: {
-          journalTitle: reqJournal.title,
-          journalDescription: reqJournal.description,
-        },
-      },
-      (err) => {
+    journalsCollection
+      .updateOne(
+        { journalId: reqJournal.journalId },
+        {
+          $set: {
+            journalTitle: reqJournal.title,
+            journalDescription: reqJournal.description,
+          },
+        }
+      )
+      .then((err) => {
         err ? console.log(err) : client.close();
-      }
-    );
+      });
 
     res.status(200).json({ message: "정상적으로 수정되었습니다." });
   }
