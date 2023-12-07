@@ -42,7 +42,7 @@ export const ViewerContainer = ({ content }: ViewerContainerProps) => {
 
   return (
     <Wrap>
-      <ForwardViewer ref={viewRef} initialValue={content} />
+      <ForwardViewer ref={viewRef} />
     </Wrap>
   );
 };
