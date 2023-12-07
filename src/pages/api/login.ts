@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   const id = req.query.id;
   const pw = req.query.pw;
