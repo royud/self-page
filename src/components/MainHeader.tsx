@@ -18,7 +18,7 @@ const LogoContainer = () => {
 // 메뉴
 const NavList = ({ text, route }: { text: string; route: string }) => {
   const router = useRouter();
-  const NavRef = useRef<HTMLLiElement>(null);
+  const NavRef = useRef<HTMLLIElement>(null);
   const [navBar, setNavBar] = useState<number>(0);
   const [isActiveList, setIsActiveList] = useState<boolean>(false);
 
