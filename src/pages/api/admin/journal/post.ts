@@ -46,7 +46,7 @@ export default async function handler(
       projectTitle: projectTitle,
     };
 
-    journalsCollection.insertOne(newJournal, (err: any) => {
+    journalsCollection.insertOne(newJournal, <InsertOneOptions>(err: any) => {
       err ? console.log(err) : client.close();
     });
 
