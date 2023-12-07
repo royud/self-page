@@ -53,12 +53,9 @@ const Profile = () => {
         setValue={setEmail}
       />
       <div className="buttonWrap">
-        <StyledButton
-          children="저장"
-          onClick={submit}
-          width={100}
-          height={30}
-        />
+        <StyledButton onClick={submit} width={100} height={30}>
+          저장
+        </StyledButton>
       </div>
     </ProfileWrapper>
   );
@@ -155,12 +152,9 @@ const Project = () => {
         setValue={setDescription}
       />
       <div className="buttonWrap">
-        <StyledButton
-          children="저장"
-          onClick={submit}
-          width={100}
-          height={30}
-        />
+        <StyledButton onClick={submit} width={100} height={30}>
+          저장
+        </StyledButton>
       </div>
     </ProfileWrapper>
   );
@@ -268,12 +262,9 @@ const Journal = () => {
         setValue={setDescription}
       />
       <div className="buttonWrap">
-        <StyledButton
-          children="저장"
-          onClick={submit}
-          width={100}
-          height={30}
-        />
+        <StyledButton onClick={submit} width={100} height={30}>
+          저장
+        </StyledButton>
       </div>
     </ProfileWrapper>
   );
