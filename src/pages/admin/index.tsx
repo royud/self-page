@@ -76,7 +76,7 @@ const Project = () => {
     description: "",
   });
 
-  const [year, setYear] = useState<number>(0);
+  const [year, setYear] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -103,7 +103,7 @@ const Project = () => {
       })();
     }
     if (selectProject && selectProject.id === 0) {
-      setYear(0);
+      setYear("");
       setTitle("");
       setDescription("");
     }
