@@ -65,11 +65,7 @@ export default function Projects() {
   const [projectsData, setProjectsData] = useState<
     {
       year: number;
-      projects: {
-        projectId: number;
-        projectTitle: string;
-        thumnail: string;
-      };
+      projects: ProjectListProps[];
     }[]
   >();
   const projectListData = async () => {
