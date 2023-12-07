@@ -19,7 +19,7 @@ const LogoContainer = () => {
 const NavList = ({ text, route }: { text: string; route: string }) => {
   const router = useRouter();
   const NavRef = useRef<HTMLLIElement>(null);
-  const [navBar, setNavBar] = useState<number>(0);
+  const [navBar, setNavBar] = useState<number | undefined>(0);
   const [isActiveList, setIsActiveList] = useState<boolean>(false);
 
   const nowPage = router.pathname;
@@ -31,7 +31,7 @@ const NavList = ({ text, route }: { text: string; route: string }) => {
 
   // 첫 로딩 시 바 크기 저장
   useEffect(() => {
-    isActiveList ? setNavBar(NavRef.current?.offsetWidth) : setNavBar(0);
+    isActiveList ? setNavBar(NavRef.current.offsetWidth) : setNavBar(0);
   }, [isActiveList]);
 
   return (
