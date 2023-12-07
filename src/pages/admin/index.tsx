@@ -98,7 +98,7 @@ const Project = () => {
       })();
     }
     if (selectProject && selectProject.id === 0) {
-      setYear("");
+      setYear(0);
       setTitle("");
       setDescription("");
     }
