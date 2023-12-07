@@ -40,18 +40,16 @@ export const SelectWrap = ({
 }: SelectWrapProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
-  const [optionList, setOptionList] = useState([]);
+  const [optionList, setOptionList] = useState<{ id: number; title: string }[]>(
+    [{ id: 0, title: "" }]
+  );
 
   useEffect(() => {
-    const options = [...selectList];
-
     if (selectList.length) {
       if (addList) {
-        const newOption = { id: 0, title: "새로 작성" };
-        options.unshift(newOption);
-        setOptionList(options);
+        setOptionList([{ id: 0, title: "새로 작성" }, ...selectList]);
       } else {
-        setOptionList(options);
+        setOptionList([...selectList]);
       }
     }
   }, [selectList]);
