@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 type Data = {
   id: number;
   title: string;
-};
+}[];
 
 export default async function handler(
   req: NextApiRequest,
