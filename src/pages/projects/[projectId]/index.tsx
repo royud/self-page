@@ -43,7 +43,7 @@ export default function Project() {
 const Wrap = styled.div`
   .year {
     font-size: 20px;
-    color: ${({ $isactive, theme }) => `${theme.colors.subTextColor}`};
+    color: ${({ theme }) => theme.colors.subTextColor};
   }
   .title {
     font-size: 35px;
