@@ -39,7 +39,7 @@ export default async function handler(
     //프로젝트 배열 호출
     const profile = await profileCollection.findOne();
 
-    const stackList = profile.stack?.join(", ");
+    const stackList = profile?.stack.join(", ");
 
     profile["stack"] = stackList;
 
