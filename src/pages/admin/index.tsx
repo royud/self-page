@@ -345,7 +345,7 @@ export default function AdminMain() {
   );
 }
 
-const AdminNav = styled.div`
+const AdminNav = styled.div<{ $isactive: number }>`
   width: 463px;
   height: 100%;
   padding: 100px 0 0 235px;
