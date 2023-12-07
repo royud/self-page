@@ -33,9 +33,7 @@ type EditorContainerProps = {
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const ViewerContainer = ({
-  content,
-}: IntrinsicAttributes & RefAttributes<ViewerProps>) => {
+export const ViewerContainer = ({ content }: ViewerContainerProps) => {
   const viewRef = useRef<any>();
 
   useEffect(() => {
