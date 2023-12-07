@@ -17,7 +17,7 @@ const getProjectsData = async () => {
 
 type ProjectListProps = {
   projectId: number;
-  title: string;
+  projectTitle: string;
   thumnail: string | undefined;
 };
 
@@ -27,7 +27,7 @@ type YearListProps = {
 };
 
 const ProjectListContainer = ({
-  title,
+  projectTitle,
   projectId,
   thumnail,
 }: ProjectListProps) => {
@@ -38,7 +38,7 @@ const ProjectListContainer = ({
       $thumnail={thumnail || ""}
     >
       <div className="bg"></div>
-      <div className="text">{title}</div>
+      <div className="text">{projectTitle}</div>
     </StyledProjectsList>
   );
 };
@@ -51,7 +51,7 @@ const YearListContainer = ({ year, projects }: YearListProps) => {
         {projects.map((project) => (
           <ProjectListContainer
             key={project.projectId}
-            title={project.projectTitle}
+            projectTitle={project.projectTitle}
             projectId={project.projectId}
             thumnail={project.thumnail}
           />
