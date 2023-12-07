@@ -6,7 +6,7 @@ type Data = { message: string };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   const { method } = req;
 
