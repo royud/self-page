@@ -26,8 +26,8 @@ type SelectWrapProps = {
   label: string;
   addList: boolean;
   selectList: any[];
-  value: any[];
-  setValue: React.Dispatch<any>;
+  value: any;
+  setValue: React.Dispatch<React.SetStateAction<any>>;
 };
 
 export const SelectWrap = ({
