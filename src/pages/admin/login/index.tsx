@@ -18,9 +18,9 @@ type LoginInputProps = {
   tryLogin: () => void;
 };
 
-const LoginInput = forwardRef(function LoginInput(
-  { label, type, value, setValue, tryLogin }: LoginInputProps,
-  ref: ForwardedRef<HTMLInputElement>
+const LoginInput = forwardRef<LoginInputProps>(function LoginInput(
+  { label, type, value, setValue, tryLogin },
+  ref
 ) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const onFocus = () => {
