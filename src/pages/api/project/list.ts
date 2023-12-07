@@ -26,7 +26,7 @@ export default async function handler(
   const projects = await projectsCollection.find().toArray();
 
   //데이터 가공
-  const reducedProjects = projects.reduce((acc, cur) => {
+  const reducedProjects = projects.reduce((acc: any, cur) => {
     //프로젝트 요소 가공 및 completedYear 추출
     const { projectDescription, completedYear, ...filteredData } = cur;
 
@@ -40,6 +40,7 @@ export default async function handler(
 
     // 새로운 데이터에 completedYear가 key로 있을 경우 그 value인 배열에 담고
     // 없을 경우 새롭게 배열로 추가
+
     if (acc[completedYear]) {
       acc[completedYear].push(newData);
     } else {
