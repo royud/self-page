@@ -50,7 +50,7 @@ const JournalList = ({
   setNowJournalId,
 }: JournalListProps) => {
   const [nowJournalList, setNowJournalList] =
-    useState<{ id: number; title: string }[]>();
+    useState<{ journalId: number; title: string }[]>();
   const [isActiveList, setIsActiveList] = useState<number>(1);
   const journalListData = async () => {
     const data = await getjournalsData(nowModalId);
