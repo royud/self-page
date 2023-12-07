@@ -53,7 +53,7 @@ export const EditorContainer = ({
   setValue,
   postId,
 }: EditorContainerProps) => {
-  const editorRef = useRef();
+  const editorRef = useRef<any>();
 
   const [isSetting, setIsSetting] = useState({
     setId: false,
