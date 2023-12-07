@@ -23,8 +23,8 @@ export default async function handler(
   //프로젝트 배열 호출
   const admin = await adminCollection.findOne();
 
-  const adminId = admin.admin;
-  const adminPw = admin.password;
+  const adminId = admin?.admin;
+  const adminPw = admin?.password;
 
   // 연결 종료
   client.close();
