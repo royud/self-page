@@ -95,7 +95,7 @@ export const EditorContainer = ({
 
   return (
     <Wrap>
-      <ForwardEditor ref={editorRef} onChange={onChange} />
+      <ForwardEditor ref={editorRef} />
     </Wrap>
   );
 };
