@@ -14,7 +14,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<MessageData, Data>
+  res: NextApiResponse
 ) {
   const journalId = Number(req.query.journalid);
 
