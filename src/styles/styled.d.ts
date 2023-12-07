@@ -4,6 +4,16 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    colors: { black: string; white: string; orange: string };
+    colors: {
+      mainTextColor: string;
+      descTextColor: string;
+      subTextColor: string;
+      white: string;
+      objectColor: string;
+      mainColor: string;
+    };
+    mainLayout: {
+      width: number;
+    };
   }
 }
