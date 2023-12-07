@@ -71,7 +71,7 @@ export const MainHeader = ({
     navId: number;
     title: string;
     route: string;
-  };
+  }[];
 }) => {
   const router = useRouter();
   return (
