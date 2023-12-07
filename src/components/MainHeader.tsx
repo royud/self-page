@@ -53,7 +53,7 @@ const NavContainer = ({
     navId: number;
     title: string;
     route: string;
-  };
+  }[];
 }) => {
   return (
     <Nav>
