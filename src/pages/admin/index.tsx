@@ -69,7 +69,12 @@ const Project = () => {
     year: number;
     title: string;
     description: string;
-  }>();
+  }>({
+    id: 0,
+    year: 0,
+    title: "",
+    description: "",
+  });
 
   const [year, setYear] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
