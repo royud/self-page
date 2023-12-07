@@ -176,10 +176,26 @@ const Journal = () => {
   const [projectList, setProjectList] = useState([]);
   const [journalList, setJournalList] = useState([]);
 
-  const [selectProject, setSelectProject] = useState({});
-  const [selectJournal, setSelectJournal] = useState({});
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [selectProject, setSelectProject] = useState<{
+    id: number;
+    title: string;
+    description: string;
+  }>({
+    id: 0,
+    title: "",
+    description: "",
+  });
+  const [selectJournal, setSelectJournal] = useState<{
+    id: number;
+    title: string;
+    description: string;
+  }>({
+    id: 0
+    title: "",
+    description: ""
+  });
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   //프로젝트 리스트 호출
   useEffect(() => {
@@ -203,43 +219,48 @@ const Journal = () => {
 
   //일지 본문 호출
   useEffect(() => {
-    if (selectJournal && selectJournal.id) {
-      (async () => {
-        const data = await fetch(
-          `/api/admin/journal/post?journalid=${selectJournal.id}`
-        ).then((res) => res.json());
-        setTitle(data.journalTitle);
-        setDescription(data.journalDescription);
-      })();
-    }
-    if (selectJournal.id === 0) {
-      setTitle("");
-      setDescription("");
+    if (selectJournal) {
+      if (selectJournal.id) {
+        (async () => {
+          const data = await fetch(
+            `/api/admin/journal/post?journalid=${selectJournal.id}`
+          ).then((res) => res.json());
+          setTitle(data.journalTitle);
+          setDescription(data.journalDescription);
+        })();
+      }
+      if (!selectJournal.id) {
+        setTitle("");
+        setDescription("");
+      }
     }
   }, [selectJournal]);
 
   const submit = async () => {
-    if (selectJournal.id === 0) {
-      await fetch("/api/admin/journal/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          projectId: selectProject.id,
-          title: title,
-          description: description,
-        }),
-      }).then(() => alert("완료되었습니다."));
-    } else {
-      await fetch("/api/admin/journal/post", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          journalId: selectJournal.id,
-          title: title,
-          description: description,
-        }),
-      }).then(() => alert("완료되었습니다."));
+    if(selectJournal){
+      if (!selectJournal.id) {
+        await fetch("/api/admin/journal/post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            projectId: selectProject.id,
+            title: title,
+            description: description,
+          }),
+        }).then(() => alert("완료되었습니다."));
+      } else {
+        await fetch("/api/admin/journal/post", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            journalId: selectJournal.id,
+            title: title,
+            description: description,
+          }),
+        }).then(() => alert("완료되었습니다."));
+      }
     }
+
   };
 
   return (
