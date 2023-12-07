@@ -31,6 +31,7 @@ type ViewerContainerProps = { content: string };
 type EditorContainerProps = {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  postId: number;
 };
 
 export const ViewerContainer = ({ content }: ViewerContainerProps) => {
