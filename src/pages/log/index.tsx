@@ -83,7 +83,11 @@ const JournalList = ({
 };
 
 const JournalPost = ({ nowJournalId }: JournalPostProps) => {
-  const [nowJournal, setNowJournal] = useState();
+  const [nowJournal, setNowJournal] = useState<{
+    projectTitle: string;
+    journalTitle: string;
+    journalDescription: string;
+  }>();
   const journalData = async () => {
     const data = await getjournalData(nowJournalId);
 
