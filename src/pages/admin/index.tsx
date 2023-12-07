@@ -87,7 +87,7 @@ const Project = () => {
 
   //프로젝트 본문 호출
   useEffect(() => {
-    if (selectProject && selectProject.id) {
+    if (selectProject?.id !== 0) {
       (async () => {
         const data = await fetch(
           `/api/admin/project/post?projectid=${selectProject.id}`
@@ -97,7 +97,7 @@ const Project = () => {
         setDescription(data.projectDescription);
       })();
     }
-    if (selectProject.id === 0) {
+    if (selectProject?.id === 0) {
       setYear("");
       setTitle("");
       setDescription("");
