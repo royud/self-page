@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import { AdminTitle } from "@/components/admin";
 
-import { ROUTE_ADMIN } from "@/pages/const";
+import { ROUTE_ADMIN } from "@/const";
 
 import LocalStorage from "@/utils/localstorage";
 
