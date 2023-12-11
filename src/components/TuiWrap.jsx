@@ -1,9 +1,4 @@
-import {
-  Editor,
-  Viewer,
-  ViewerProps,
-  EditorProps,
-} from "@toast-ui/react-editor";
+import { Editor, Viewer } from "@toast-ui/react-editor";
 
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js";
 

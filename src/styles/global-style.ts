@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { normalize } from "styled-normalize";
 
-import localFont from "next/font/local";
-
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
 

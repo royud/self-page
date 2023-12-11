@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 
 import { ROUTE_PROJECTS } from "@/const";
 
@@ -116,7 +115,9 @@ const StyledProjectsList = styled.li<{ $thumnail: string }>`
   font-size: 35px;
   font-weight: bold;
   position: relative;
-  transition: transform 0.3s, color 0.3s;
+  transition:
+    transform 0.3s,
+    color 0.3s;
   .bg {
     position: absolute;
     width: 100%;

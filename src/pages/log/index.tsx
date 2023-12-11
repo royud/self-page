@@ -44,11 +44,7 @@ type JournalListProps = {
 };
 type JournalPostProps = { nowJournalId: number };
 
-const JournalList = ({
-  nowModalId,
-  nowJournalId,
-  setNowJournalId,
-}: JournalListProps) => {
+const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
   const [nowJournalList, setNowJournalList] =
     useState<{ journalId: number; journalTitle: string }[]>();
   const [isActiveList, setIsActiveList] = useState<number>(1);
@@ -218,7 +214,9 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
   top: 0;
   width: ${({ $isactive }) => ($isactive ? "60vw" : "30vw")};
   height: 100vh;
-  transition: opacity 0.3s, width 0.3s;
+  transition:
+    opacity 0.3s,
+    width 0.3s;
   display: flex;
   .modalContent {
     width: 50vw;
