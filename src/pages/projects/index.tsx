@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-import { ROUTE_PROJECTS } from "@/pages/const";
+import { ROUTE_PROJECTS } from "@/const";
 
 // 데이터 불러오기
 const getProjectsData = async () => {

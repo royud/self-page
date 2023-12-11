@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "next/router";
 
-import { ROUTE_PROJECTS } from "@/pages/const";
+import { ROUTE_PROJECTS } from "@/const";
 
 export default function Main() {
   const router = useRouter();

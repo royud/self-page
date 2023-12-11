@@ -6,7 +6,7 @@ import { styled } from "styled-components";
 
 import { MainWidth } from "./MainWidth";
 
-import { ROUTE_PROJECTS } from "@/pages/const";
+import { ROUTE_PROJECTS } from "@/const";
 
 // 로고
 const LogoContainer = () => {

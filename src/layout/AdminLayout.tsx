@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import { ROUTE_ADMIN, ROUTE_LOGIN } from "@/pages/const";
+import { ROUTE_ADMIN, ROUTE_LOGIN } from "@/const";
 
 import LocalStorage from "@/utils/localstorage";
 

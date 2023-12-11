@@ -8,7 +8,7 @@ import { theme } from "../styles/theme";
 import { MainLayout, AdminLayout } from "@/layout";
 import { useRouter } from "next/router";
 
-import { ROUTE_ADMIN } from "@/pages/const";
+import { ROUTE_ADMIN } from "@/const";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

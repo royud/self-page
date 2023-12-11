@@ -6,12 +6,7 @@ import styled from "styled-components";
 
 import { MainHeader, MainWidth } from "@/components";
 
-import {
-  ROUTE_MAIN,
-  ROUTE_RESUME,
-  ROUTE_PROJECTS,
-  ROUTE_LOG,
-} from "@/pages/const";
+import { ROUTE_MAIN, ROUTE_RESUME, ROUTE_PROJECTS, ROUTE_LOG } from "@/const";
 
 type LayoutProps = { children: React.ReactNode };
 
