@@ -3,7 +3,12 @@ import styled from "styled-components";
 
 import dynamic from "next/dynamic";
 
-import { ViewerProps, EditorProps } from "@toast-ui/react-editor";
+import {
+  Viewer as ViewerType,
+  ViewerProps,
+  Editor as EditorType,
+  EditorProps,
+} from "@toast-ui/react-editor";
 
 const TuiViewer = dynamic(() => import("./TuiWrap").then((m) => m.TuiViewer), {
   ssr: false,
@@ -19,7 +24,7 @@ interface ForwardEditorProps extends EditorProps {
   onChange: () => void;
 }
 
-const ForwardViewer = forwardRef<ViewerProps | undefined, ForwardViewerProps>(
+const ForwardViewer = forwardRef<ViewerType | undefined, ForwardViewerProps>(
   function ForwardViewer(props, ref) {
     return <TuiViewer {...props} forwardedRef={ref} />;
   }
