@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
-import { MainHeader, MainWidth } from "@/components";
+import { DarkButton, MainHeader, MainWidth } from "@/components";
 
 import { ROUTE_RESUME, ROUTE_PROJECTS, ROUTE_LOG } from "@/const";
 
-type LayoutProps = { children: React.ReactNode };
+import { LayoutProps } from "@/types/components";
 
 export const MainLayout = ({ children }: LayoutProps) => {
   const router = useRouter();
@@ -49,6 +49,7 @@ export const MainLayout = ({ children }: LayoutProps) => {
           {children}
         </Contents>
       </MainWidth>
+      <DarkButton />
     </>
   );
 };

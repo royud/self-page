@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import styled from "styled-components";
 
 import dynamic from "next/dynamic";
-
+import { JournalListProps, JournalPostProps, ModalProps } from "@/types/pages";
+import Image from "next/image";
+import { CustomThemeContext } from "@/pages/_app";
 const ViewerContainer = dynamic(
   () => import("../../components").then((m) => m.ViewerContainer),
   { ssr: false }
@@ -31,19 +33,6 @@ const getjournalData = async (id: number) => {
   }
 };
 
-type ModalProps = {
-  isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-  nowModalId: number;
-  setNowModalId: React.Dispatch<React.SetStateAction<number>>;
-};
-type JournalListProps = {
-  nowModalId: number;
-  nowJournalId: number;
-  setNowJournalId: React.Dispatch<React.SetStateAction<number>>;
-};
-type JournalPostProps = { nowJournalId: number };
-
 const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
   const [nowJournalList, setNowJournalList] =
     useState<{ journalId: number; journalTitle: string }[]>();
@@ -66,7 +55,7 @@ const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
         <li
           className="journalList"
           key={list.journalId}
-          onClick={(e) => {
+          onClick={() => {
             setIsActiveList(index + 1);
             setNowJournalId(list.journalId);
           }}
@@ -96,13 +85,13 @@ const JournalPost = ({ nowJournalId }: JournalPostProps) => {
   return (
     <div className="modalContent">
       {nowJournal && (
-        <>
+        <div className="content">
           <div className="modalHeader">
             <div className="projectTitle">{nowJournal.projectTitle}</div>
             <div className="journalTitle">{nowJournal.journalTitle}</div>
           </div>
           <ViewerContainer content={nowJournal.journalDescription} />
-        </>
+        </div>
       )}
     </div>
   );
@@ -115,6 +104,7 @@ const ModalContainer = ({
   setNowModalId,
 }: ModalProps) => {
   const [nowJournalId, setNowJournalId] = useState<number>(0);
+  const { theme } = useContext(CustomThemeContext);
 
   const cancelModal = () => {
     setIsActive(false);
@@ -124,13 +114,16 @@ const ModalContainer = ({
 
   return (
     <StyledModal $isactive={isActive}>
-      <JournalList
-        nowModalId={nowModalId}
-        nowJournalId={nowJournalId}
-        setNowJournalId={setNowJournalId}
-      />
+      <JournalList nowModalId={nowModalId} setNowJournalId={setNowJournalId} />
       <JournalPost nowJournalId={nowJournalId} />
-      <div className="exit" onClick={cancelModal}></div>
+      <div className="exit" onClick={cancelModal}>
+        <Image
+          src={`/icon/exit_${theme}.png`}
+          alt="ss"
+          width="30"
+          height="30"
+        />
+      </div>
     </StyledModal>
   );
 };
@@ -195,17 +188,6 @@ const Wrap = styled.div<{ $nowmodalid: number }>`
   }
 `;
 
-const StyledProjectList = styled.li<{ $isactive: boolean }>`
-  cursor: pointer;
-  padding-bottom: 20px;
-  font-size: 25px;
-  font-weight: bold;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
-  margin-bottom: 20px;
-  color: ${({ $isactive, theme }) =>
-    $isactive ? theme.colors.mainColor : theme.colors.mainTextColor};
-`;
-
 const StyledModal = styled.div<{ $isactive: boolean }>`
   visibility: ${({ $isactive }) => ($isactive ? "visible" : "hidden")};
   opacity: ${({ $isactive }) => ($isactive ? 1 : 0)};
@@ -219,12 +201,16 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     width 0.3s;
   display: flex;
   .modalContent {
-    width: 50vw;
+    width: 75%;
     height: 100vh;
     padding: 49px 50px;
     position: relative;
-    background: ${({ theme }) => theme.colors.white};
-    overflow-y: scroll;
+    background: ${({ theme }) => theme.colors.mainBackgroundColor};
+  }
+  .content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
   .modalHeader {
     border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
@@ -232,6 +218,7 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     flex-direction: column;
     gap: 10px;
     padding-bottom: 15px;
+    margin-bottom: 50px;
   }
   .projectTitle {
     font-size: 18px;
@@ -247,12 +234,11 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     top: 20px;
     width: 30px;
     height: 30px;
-    background: gray;
     cursor: pointer;
   }
 `;
 const StyledJournalList = styled.ul<{ $isactivelist: number }>`
-  width: 15vw;
+  width: 25%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.objectColor};
   padding: 49px 25px;

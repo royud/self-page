@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import { ROUTE_PROJECTS } from "@/const";
+import { ProjectListProps, YearListProps } from "@/types/pages";
 
 // 데이터 불러오기
 const getProjectsData = async () => {
@@ -12,17 +13,6 @@ const getProjectsData = async () => {
     cache: "no-store",
   });
   return data.json();
-};
-
-type ProjectListProps = {
-  projectId: number;
-  projectTitle: string;
-  thumnail: string | undefined;
-};
-
-type YearListProps = {
-  year: number;
-  projects: ProjectListProps[];
 };
 
 const ProjectListContainer = ({

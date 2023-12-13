@@ -1,4 +1,4 @@
-import { createRef, forwardRef, useEffect, useState } from "react";
+import { ChangeEvent, createRef, forwardRef, useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -10,17 +10,11 @@ import { ROUTE_ADMIN } from "@/const";
 
 import LocalStorage from "@/utils/localstorage";
 
-type LoginInputProps = {
-  label: string;
-  type: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  tryLogin: () => void;
-};
+import { LoginInputProps } from "@/types/pages";
 
-const LoginInput = forwardRef<LoginInputProps, any>(function LoginInput(
+const LoginInput = forwardRef(function LoginInput(
   { label, type, value, setValue, tryLogin }: LoginInputProps,
-  ref: React.Ref<any>
+  ref: React.Ref<HTMLInputElement> | undefined
 ) {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const onFocus = () => {
@@ -35,12 +29,14 @@ const LoginInput = forwardRef<LoginInputProps, any>(function LoginInput(
       <input
         onFocus={onFocus}
         onBlur={onBlur}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
         type={type}
         id={label}
         value={value}
         ref={ref}
-        onKeyPress={({ key }) => key === "Enter" && tryLogin()}
+        onKeyPress={({ key }: { key: string }) => key === "Enter" && tryLogin()}
       />
     </StyledLoginInput>
   );
@@ -50,10 +46,10 @@ export default function AdminLogin() {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
 
-  const IdRef = createRef<any>();
+  const IdRef = createRef<HTMLInputElement>();
   const router = useRouter();
   useEffect(() => {
-    IdRef.current.focus();
+    IdRef.current?.focus();
   }, []);
 
   const tryLogin = async () => {

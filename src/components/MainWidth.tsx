@@ -1,8 +1,5 @@
+import { LayoutProps } from "@/types/components";
 import { styled } from "styled-components";
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
 
 export const MainWidth = ({ children }: LayoutProps) => {
   return <Wrap>{children}</Wrap>;

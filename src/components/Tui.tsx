@@ -5,10 +5,14 @@ import dynamic from "next/dynamic";
 
 import {
   Viewer as ViewerType,
-  ViewerProps,
   Editor as EditorType,
-  EditorProps,
 } from "@toast-ui/react-editor";
+import {
+  EditorContainerProps,
+  ViewerContainerProps,
+  ForwardViewerProps,
+  ForwardEditorProps,
+} from "@/types/components";
 
 const TuiViewer = dynamic(() => import("./TuiWrap").then((m) => m.TuiViewer), {
   ssr: false,
@@ -16,13 +20,6 @@ const TuiViewer = dynamic(() => import("./TuiWrap").then((m) => m.TuiViewer), {
 const TuiEditor = dynamic(() => import("./TuiWrap").then((m) => m.TuiEditor), {
   ssr: false,
 });
-
-interface ForwardViewerProps extends ViewerProps {
-  initialValue: string;
-}
-interface ForwardEditorProps extends EditorProps {
-  onChange: () => void;
-}
 
 const ForwardViewer = forwardRef<ViewerType | undefined, ForwardViewerProps>(
   function ForwardViewer(props, ref) {
@@ -36,23 +33,17 @@ const ForwardEditor = forwardRef<EditorType | undefined, ForwardEditorProps>(
   }
 );
 
-type ViewerContainerProps = { content: string };
-
-type EditorContainerProps = {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  postId: number;
-};
-
 export const ViewerContainer = ({ content }: ViewerContainerProps) => {
-  const viewRef = useRef<any>();
+  const viewRef = useRef<ViewerType>();
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     viewRef.current?.getInstance().setMarkdown(content);
+    wrapRef.current?.scrollTo({ top: 0 });
   }, [content]);
 
   return (
-    <Wrap>
+    <Wrap ref={wrapRef}>
       <ForwardViewer ref={viewRef} initialValue={content} />
     </Wrap>
   );
@@ -63,7 +54,7 @@ export const EditorContainer = ({
   setValue,
   postId,
 }: EditorContainerProps) => {
-  const editorRef = useRef<any>();
+  const editorRef = useRef<EditorType>();
 
   const [isSetting, setIsSetting] = useState({
     setId: false,
@@ -113,4 +104,7 @@ const Wrap = styled.div`
   .toastui-editor-contents {
     font-size: 15px;
   }
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 `;

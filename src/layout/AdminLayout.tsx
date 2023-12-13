@@ -7,8 +7,7 @@ import { useRouter } from "next/router";
 import { ROUTE_ADMIN, ROUTE_LOGIN } from "@/const";
 
 import LocalStorage from "@/utils/localstorage";
-
-type LayoutProps = { children: React.ReactNode };
+import { LayoutProps } from "@/types/components";
 
 export const AdminLayout = ({ children }: LayoutProps) => {
   const router = useRouter();

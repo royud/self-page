@@ -2,9 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { MongoClient } from "mongodb";
 
+import { LoginData, MessageData } from "@/types/api";
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<LoginData | MessageData>
 ) {
   const id = req.query.id;
   const pw = req.query.pw;

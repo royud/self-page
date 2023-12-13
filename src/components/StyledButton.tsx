@@ -1,12 +1,5 @@
+import { StyledButtonProps } from "@/types/components";
 import { styled } from "styled-components";
-
-type StyledButtonProps = {
-  children: string;
-  type?: "primary" | "default";
-  width?: number;
-  height?: number;
-  onClick: () => void;
-};
 
 export const StyledButton = ({
   children,

@@ -2,14 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { MongoClient } from "mongodb";
 
-type Data = {
-  projectId: number;
-  projectTitle: string;
-};
+import { MongoDBData } from "@/types/api";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<MongoDBData>
 ) {
   const journalId = Number(req.query.journalid);
   // 몽고db 연결

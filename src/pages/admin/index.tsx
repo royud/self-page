@@ -10,6 +10,8 @@ import {
 
 import { StyledButton } from "@/components";
 
+import { SelectProps } from "@/types/components";
+
 const Profile = () => {
   const [name, setName] = useState<string>("");
   const [work, setWork] = useState<string>("");
@@ -18,7 +20,9 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await fetch(`/api/admin/profile`).then((res) => res.json());
+      const data = await fetch(`/api/admin/profile`).then((res: Response) =>
+        res.json()
+      );
       if (data) {
         setName(data.name);
         setWork(data.work);
@@ -32,12 +36,7 @@ const Profile = () => {
     await fetch("/api/admin/profile", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        work: work,
-        stack: stack,
-        email: email,
-      }),
+      body: JSON.stringify({ name, work, stack, email }),
     }).then(() => alert("완료되었습니다."));
   };
 
@@ -62,18 +61,11 @@ const Profile = () => {
 };
 
 const Project = () => {
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState<SelectProps[]>([]);
 
-  const [selectProject, setSelectProject] = useState<{
-    id: number;
-    year: number;
-    title: string;
-    description: string;
-  }>({
+  const [selectProject, setSelectProject] = useState<SelectProps>({
     id: 0,
-    year: 0,
     title: "",
-    description: "",
   });
 
   const [year, setYear] = useState<string>("");
@@ -116,9 +108,9 @@ const Project = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            year: year,
-            title: title,
-            description: description,
+            year,
+            title,
+            description,
           }),
         }).then(() => alert("완료되었습니다."));
       } else {
@@ -127,9 +119,9 @@ const Project = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             projectId: selectProject.id,
-            year: year,
-            title: title,
-            description: description,
+            year,
+            title,
+            description,
           }),
         }).then(() => alert("완료되었습니다."));
       }
@@ -173,26 +165,16 @@ const Project = () => {
 };
 
 const Journal = () => {
-  const [projectList, setProjectList] = useState([]);
-  const [journalList, setJournalList] = useState([]);
+  const [projectList, setProjectList] = useState<SelectProps[]>([]);
+  const [journalList, setJournalList] = useState<SelectProps[]>([]);
 
-  const [selectProject, setSelectProject] = useState<{
-    id: number;
-    title: string;
-    description: string;
-  }>({
+  const [selectProject, setSelectProject] = useState<SelectProps>({
     id: 0,
     title: "",
-    description: "",
   });
-  const [selectJournal, setSelectJournal] = useState<{
-    id: number;
-    title: string;
-    description: string;
-  }>({
+  const [selectJournal, setSelectJournal] = useState<SelectProps>({
     id: 0,
     title: "",
-    description: "",
   });
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");

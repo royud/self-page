@@ -1,15 +1,29 @@
 import { DefaultTheme } from "styled-components";
 
-//테마 타입 정의
-
-export const theme: DefaultTheme = {
+export const lightTheme: DefaultTheme = {
   colors: {
     mainTextColor: "#000000",
     descTextColor: "#4b4b4b",
-    subTextColor: "#a39cae",
+    subTextColor: "#A094B4",
     white: "#ffffff",
-    objectColor: "#CFCBD6",
+    mainBackgroundColor: "#ffffff",
+    objectColor: "#CCC6D9",
     mainColor: "#793AFF",
+  },
+  mainLayout: {
+    width: 1100,
+  },
+};
+
+export const darkTheme: DefaultTheme = {
+  colors: {
+    mainTextColor: "#ffffff",
+    descTextColor: "#dbdbdb",
+    subTextColor: "#887CA0",
+    white: "#ffffff",
+    mainBackgroundColor: "#212121",
+    objectColor: "#5B4F74",
+    mainColor: "#8851FF",
   },
   mainLayout: {
     width: 1100,

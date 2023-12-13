@@ -5,11 +5,11 @@ import { MongoClient } from "mongodb";
 type Data = {
   projectId: number;
   projectTitle: string;
-};
+}[];
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Data>
 ) {
   // 몽고db 연결
   const client = await MongoClient.connect(

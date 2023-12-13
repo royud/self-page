@@ -7,6 +7,7 @@ import { styled } from "styled-components";
 import { MainWidth } from "./MainWidth";
 
 import { ROUTE_PROJECTS } from "@/const";
+import { NavListProps, NavProps } from "@/types/components";
 
 // 로고
 const LogoContainer = () => {
@@ -16,7 +17,7 @@ const LogoContainer = () => {
 };
 
 // 메뉴
-const NavList = ({ text, route }: { text: string; route: string }) => {
+const NavList = ({ title, route }: NavListProps) => {
   const router = useRouter();
   const NavRef = useRef<HTMLLIElement>(null);
   const [navBar, setNavBar] = useState<number | undefined>(0);
@@ -41,39 +42,22 @@ const NavList = ({ text, route }: { text: string; route: string }) => {
       $isactivelist={isActiveList}
       onClick={() => router.push(route)}
     >
-      {text}
+      {title}
     </StyledList>
   );
 };
 
-const NavContainer = ({
-  nav,
-}: {
-  nav: {
-    navId: number;
-    title: string;
-    route: string;
-  }[];
-}) => {
+const NavContainer = ({ nav }: { nav: NavProps[] }) => {
   return (
     <Nav>
       {nav.map((list) => (
-        <NavList key={list.navId} text={list.title} route={list.route} />
+        <NavList key={list.navId} title={list.title} route={list.route} />
       ))}
     </Nav>
   );
 };
 // --------------------------------------------------------------------------
-export const MainHeader = ({
-  nav,
-}: {
-  nav: {
-    navId: number;
-    title: string;
-    route: string;
-  }[];
-}) => {
-  const router = useRouter();
+export const MainHeader = ({ nav }: { nav: NavProps[] }) => {
   return (
     <Wrap>
       <MainWidth>
@@ -130,7 +114,7 @@ const StyledList = styled.li<{
     bottom: 0;
     width: ${({ $navbar }) => `${$navbar}px`};
     height: 2px;
-    background: #000000;
+    background: ${({ theme }) => theme.colors.mainTextColor};
     border-radius: 2px;
     transition: width 0.3s;
   }

@@ -1,20 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { MongoClient } from "mongodb";
+import { Document, InsertOneResult, MongoClient } from "mongodb";
+
+import { MongoDBData } from "@/types/api";
 
 type MessageData = { message: string };
 
 type Data = {
-  projectId: number;
-  journalId: number;
-  journalDescription: string;
-  journalTitle: string;
-  projectTitle: string;
+  projectId?: number;
+  journalId?: number;
+  journalDescription?: string;
+  journalTitle?: string;
+  projectTitle?: string;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Data | MessageData | MongoDBData>
 ) {
   const journalId = Number(req.query.journalid);
 
@@ -54,9 +56,11 @@ export default async function handler(
       projectTitle: projectTitle,
     };
 
-    journalsCollection.insertOne(newJournal).then((err: any) => {
-      err ? console.log(err) : client.close();
-    });
+    journalsCollection
+      .insertOne(newJournal)
+      .then((err: InsertOneResult<Document>) => {
+        err ? console.log(err) : client.close();
+      });
 
     res.status(200).json({ message: "정상적으로 추가되었습니다." });
   }

@@ -4,31 +4,17 @@ import styled from "styled-components";
 
 import dynamic from "next/dynamic";
 
+import {
+  SelectProps,
+  SelectWrapProps,
+  InputWrapProps,
+  EditorWrapProps,
+} from "@/types/components";
+
 const EditorContainer = dynamic(
   () => import("@/components").then((m) => m.EditorContainer),
   { ssr: false }
 );
-type InputWrapProps = {
-  label: string;
-  type: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-};
-
-type TextareaWrapProps = {
-  label: string;
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  postId: number;
-};
-
-type SelectWrapProps = {
-  label: string;
-  addList: boolean;
-  selectList: any[];
-  value: any;
-  setValue: React.Dispatch<React.SetStateAction<any>>;
-};
 
 export const SelectWrap = ({
   label,
@@ -39,9 +25,9 @@ export const SelectWrap = ({
 }: SelectWrapProps) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
-  const [optionList, setOptionList] = useState<{ id: number; title: string }[]>(
-    [{ id: 0, title: "" }]
-  );
+  const [optionList, setOptionList] = useState<SelectProps[]>([
+    { id: 0, title: "" },
+  ]);
 
   useEffect(() => {
     if (selectList.length) {
@@ -104,7 +90,7 @@ export const EditorWrap = ({
   value,
   setValue,
   postId,
-}: TextareaWrapProps) => {
+}: EditorWrapProps) => {
   return (
     <Wrap>
       <label>{label}</label>

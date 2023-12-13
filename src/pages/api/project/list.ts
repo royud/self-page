@@ -1,15 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { MongoClient } from "mongodb";
+import { StaticMongoDBData } from "@/types/api";
+
+interface ProjectData extends StaticMongoDBData {
+  thumnail: string;
+}
+
+type ReduceData = {
+  [key: string]: ProjectData[];
+};
 
 type Data = {
-  projectId: number;
-  projectTitle: string;
-};
+  year: string;
+  projects: ProjectData[];
+}[];
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Data>
 ) {
   // 몽고db 연결
   const client = await MongoClient.connect(
@@ -26,29 +35,32 @@ export default async function handler(
   const projects = await projectsCollection.find().toArray();
 
   //데이터 가공
-  const reducedProjects = projects.reduce((acc: any, cur) => {
-    //프로젝트 요소 가공 및 completedYear 추출
-    const { projectDescription, completedYear, ...filteredData } = cur;
+  const reducedProjects = projects.reduce(
+    (acc: ReduceData, cur: StaticMongoDBData) => {
+      //프로젝트 요소 가공 및 completedYear 추출
+      const { projectDescription, completedYear, ...filteredData } = cur;
 
-    const urlRegex = /(https?:\/\/[^ ]*)/;
-    const thumnail = projectDescription.match(urlRegex);
+      const urlRegex = /(https?:\/\/[^ ]*)/;
+      const thumnail = projectDescription.match(urlRegex);
 
-    const newData = {
-      ...filteredData,
-      thumnail: thumnail ? thumnail[1] : undefined,
-    };
+      const newData = {
+        ...filteredData,
+        thumnail: thumnail ? thumnail[1] : undefined,
+      };
 
-    // 새로운 데이터에 completedYear가 key로 있을 경우 그 value인 배열에 담고
-    // 없을 경우 새롭게 배열로 추가
+      // 새로운 데이터에 completedYear가 key로 있을 경우 그 value인 배열에 담고
+      // 없을 경우 새롭게 배열로 추가
 
-    if (acc[completedYear]) {
-      acc[completedYear].push(newData);
-    } else {
-      acc[completedYear] = [newData];
-    }
+      if (acc[completedYear]) {
+        acc[completedYear].push(newData);
+      } else {
+        acc[completedYear] = [newData];
+      }
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {}
+  );
 
   //객체 형식의 데이터를 배열로 전환 및 원하는 형태로 가공
   const processedData = Object.keys(reducedProjects).map((key) => ({
