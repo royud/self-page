@@ -103,17 +103,21 @@ const JournalPost = ({ nowJournalId }: JournalPostProps) => {
     journalData();
   }, [nowJournalId]);
   return (
-    <div className="modalContent">
+    <StyledJournalPost>
       {nowJournal && (
         <div className="content">
-          <div className="modalHeader">
+          <div className="header">
             <div className="projectTitle">{nowJournal.projectTitle}</div>
             <div className="journalTitle">{nowJournal.journalTitle}</div>
           </div>
-          <ViewerContainer content={nowJournal.journalDescription} />
+          <div className="main">
+            <div className="mainContent">
+              <ViewerContainer content={nowJournal.journalDescription} />
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </StyledJournalPost>
   );
 };
 
@@ -221,25 +225,41 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     opacity 0.3s,
     width 0.3s;
   display: flex;
-  .modalContent {
-    width: 75%;
-    height: 100vh;
-    padding: 49px 50px;
-    position: relative;
-    background: ${({ theme }) => theme.colors.mainBackgroundColor};
+  .exit {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
   }
+  @media (max-width: ${({ theme }) => `${theme.mainLayout.width}px`}) {
+    display: block;
+    width: 100%;
+    height: ${({ $isactive }) => ($isactive ? "100%" : "70%")};
+    transition: height 0.3s;
+  }
+`;
+const StyledJournalPost = styled.div`
+  width: 75%;
+  height: 100vh;
+  padding: 49px 50px;
+  position: relative;
+  background: ${({ theme }) => theme.colors.mainBackgroundColor};
   .content {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
   }
-  .modalHeader {
+  .header {
     border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding-bottom: 15px;
-    margin-bottom: 50px;
   }
   .projectTitle {
     font-size: 18px;
@@ -249,23 +269,17 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     font-size: 25px;
     font-weight: bold;
   }
-  .exit {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+  .main {
+    flex-grow: 1;
+    overflow: hidden;
   }
-  @media screen and (max-width: 1100px) {
-    display: block;
+  .mainContent {
+    height: 100%;
+    overflow-y: scroll;
+  }
+  @media (max-width: ${({ theme }) => `${theme.mainLayout.width}px`}) {
     width: 100%;
-    height: ${({ $isactive }) => ($isactive ? "100%" : "70%")};
-    transition: height 0.3s;
-    .modalContent {
-      width: 100%;
-      height: 100%;
-    }
+    height: 100%;
   }
 `;
 

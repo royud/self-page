@@ -105,8 +105,6 @@ const ViwerWrap = styled.div`
     font-size: 15px;
   }
   width: 100%;
-  height: 100%;
-  overflow-y: scroll;
 `;
 const EditorWrap = styled.div`
   .toastui-editor-contents {
