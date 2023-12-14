@@ -44,6 +44,6 @@ const StyledButtonWrap = styled.button<StyledButtonProps>`
     background: ${theme.colors.mainTextColor};
     border: 1px solid ${theme.colors.mainTextColor};
     transition: border 0.3s;
-    color: ${theme.colors.white};
+    color: ${theme.colors.mainBackgroundColor};
     `};
 `;

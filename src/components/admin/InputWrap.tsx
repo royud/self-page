@@ -109,13 +109,15 @@ const Wrap = styled.div`
   }
   .textBox {
     border-radius: 5px;
-    background: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.mainBackgroundColor};
     padding: 5px 15px;
   }
   .textBox input {
     width: 100%;
     border: none;
     outline: none;
+    background: ${({ theme }) => theme.colors.mainBackgroundColor};
+    color: ${({ theme }) => theme.colors.mainTextColor};
     font-size: 20px;
   }
   .textBox textarea {
@@ -137,7 +139,7 @@ const StyledSelectWrap = styled.div<{ $isactive: boolean }>`
     cursor: pointer;
     width: 400px;
     padding: 5px 15px;
-    background: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.mainBackgroundColor};
     border-radius: 5px;
     overflow: hidden;
     white-space: nowrap;
@@ -152,7 +154,7 @@ const StyledSelectWrap = styled.div<{ $isactive: boolean }>`
     padding: 10px;
     border-radius: 5px;
     z-index: 100;
-    background: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.mainBackgroundColor};
     display: flex;
     flex-direction: column;
     visibility: ${({ $isactive }) => ($isactive ? "visible" : "hidden")};

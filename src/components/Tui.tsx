@@ -43,9 +43,9 @@ export const ViewerContainer = ({ content }: ViewerContainerProps) => {
   }, [content]);
 
   return (
-    <Wrap ref={wrapRef}>
+    <ViwerWrap ref={wrapRef}>
       <ForwardViewer ref={viewRef} initialValue={content} />
-    </Wrap>
+    </ViwerWrap>
   );
 };
 
@@ -95,16 +95,23 @@ export const EditorContainer = ({
   };
 
   return (
-    <Wrap>
+    <EditorWrap>
       <ForwardEditor ref={editorRef} onChange={onChange} />
-    </Wrap>
+    </EditorWrap>
   );
 };
-const Wrap = styled.div`
+const ViwerWrap = styled.div`
   .toastui-editor-contents {
     font-size: 15px;
   }
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+`;
+const EditorWrap = styled.div`
+  .toastui-editor-contents {
+    font-size: 15px;
+  }
+  width: 100%;
+  height: 100%;
 `;
