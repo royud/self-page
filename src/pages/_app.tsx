@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>셀프 페이지</title>
+        <title>J-folio</title>
       </Head>
       <CustomThemeContext.Provider value={themeProps}>
         <ThemeProvider

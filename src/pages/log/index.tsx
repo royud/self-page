@@ -37,6 +37,9 @@ const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
   const [nowJournalList, setNowJournalList] =
     useState<{ journalId: number; journalTitle: string }[]>();
   const [isActiveList, setIsActiveList] = useState<number>(1);
+
+  const [isActiveMobile, setIsActiveMobile] = useState<boolean>(false);
+
   const journalListData = async () => {
     const data = await getjournalsData(nowModalId);
     if (data.length !== 0) {
@@ -48,21 +51,38 @@ const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
   useEffect(() => {
     journalListData();
     setIsActiveList(1);
+    setIsActiveMobile(false);
   }, [nowModalId]);
+
   return (
-    <StyledJournalList $isactivelist={isActiveList}>
-      {nowJournalList?.map((list, index) => (
-        <li
-          className="journalList"
-          key={list.journalId}
-          onClick={() => {
-            setIsActiveList(index + 1);
-            setNowJournalId(list.journalId);
-          }}
-        >
-          {index + 1} .{list.journalTitle}
-        </li>
-      ))}
+    <StyledJournalList
+      $isactivelist={isActiveList}
+      $isactivemobile={isActiveMobile}
+    >
+      <button
+        onClick={() =>
+          setIsActiveMobile((prevTheme: boolean) => {
+            return prevTheme ? false : true;
+          })
+        }
+      >
+        일지 리스트 {isActiveMobile ? "닫기" : "열기"}
+      </button>
+      <div className="wrap">
+        <ul>
+          {nowJournalList?.map((list, index) => (
+            <li
+              key={list.journalId}
+              onClick={() => {
+                setIsActiveList(index + 1);
+                setNowJournalId(list.journalId);
+              }}
+            >
+              {index + 1} .{list.journalTitle}
+            </li>
+          ))}
+        </ul>
+      </div>
     </StyledJournalList>
   );
 };
@@ -193,10 +213,11 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
   opacity: ${({ $isactive }) => ($isactive ? 1 : 0)};
   position: absolute;
   right: 0;
-  top: 0;
-  width: ${({ $isactive }) => ($isactive ? "60vw" : "30vw")};
+  bottom: 0;
+  width: ${({ $isactive }) => ($isactive ? "60vw" : "50vw")};
   height: 100vh;
   transition:
+    visibility 0.3s,
     opacity 0.3s,
     width 0.3s;
   display: flex;
@@ -236,16 +257,35 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     height: 30px;
     cursor: pointer;
   }
+  @media screen and (max-width: 1100px) {
+    display: block;
+    width: 100%;
+    height: ${({ $isactive }) => ($isactive ? "100%" : "70%")};
+    transition: height 0.3s;
+    .modalContent {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
-const StyledJournalList = styled.ul<{ $isactivelist: number }>`
+
+const StyledJournalList = styled.div<{
+  $isactivelist: number;
+  $isactivemobile: boolean;
+}>`
   width: 25%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.objectColor};
-  padding: 49px 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  .journalList {
+  button {
+    display: none;
+  }
+  ul {
+    padding: 49px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  ul li {
     font-size: 18px;
     color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
@@ -254,7 +294,38 @@ const StyledJournalList = styled.ul<{ $isactivelist: number }>`
     text-overflow: ellipsis;
     word-break: break-all;
   }
-  .journalList:nth-child(${({ $isactivelist }) => $isactivelist}) {
+  ul li:nth-child(${({ $isactivelist }) => $isactivelist}) {
     color: ${({ theme }) => theme.colors.mainColor};
+  }
+  @media (max-width: ${({ theme }) => `${theme.mainLayout.width}px`}) {
+    height: auto;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    button {
+      display: block;
+      width: 100%;
+      height: 40px;
+      background-color: transparent;
+      border: none;
+      color: ${({ theme }) => theme.colors.white};
+    }
+    .wrap {
+      padding: ${({ $isactivemobile }) => ($isactivemobile ? "10px" : "0px")};
+      visibility: ${({ $isactivemobile }) =>
+        $isactivemobile ? "visible" : "hidden"};
+      height: ${({ $isactivemobile }) => ($isactivemobile ? "300px" : "0px")};
+      opacity: ${({ $isactivemobile }) => ($isactivemobile ? 1 : 0)};
+      overflow-y: scroll;
+      transition:
+        opacity 0.3s,
+        height 0.3s;
+    }
+    ul {
+      height: auto;
+      padding: 0;
+    }
   }
 `;

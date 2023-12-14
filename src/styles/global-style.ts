@@ -34,6 +34,5 @@ export const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.colors.mainBackgroundColor};
     color: ${({ theme }) => theme.colors.mainTextColor};
     transition: background-color 0.3s, color 0.3s;
-    overflow: hidden;
   }
 `;

@@ -18,4 +18,5 @@ const Wrap = styled.button`
   border: none;
   background-color: ${({ theme }) => theme.colors.mainTextColor};
   color: ${({ theme }) => theme.colors.mainBackgroundColor};
+  z-index: 1000;
 `;

@@ -55,7 +55,9 @@ const Wrap = styled.div`
   }
   .stackList {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
+    margin-bottom: 49px;
   }
   .stackList li {
     padding: 3px 15px;
@@ -63,7 +65,6 @@ const Wrap = styled.div`
     color: ${({ theme }) => theme.colors.white};
     font-size: 20px;
     border-radius: 15px;
-    margin-bottom: 49px;
   }
   .email {
     font-size: 25px;
