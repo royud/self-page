@@ -53,8 +53,8 @@ const Spinner = styled.div`
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent ${({ theme }) => theme.colors.mainColor}
-      ${({ theme }) => theme.colors.mainColor};
+    border-color: ${({ theme }) => theme.colors.mainColor}
+      ${({ theme }) => theme.colors.mainColor} transparent;
     width: 24px;
     height: 24px;
     border-radius: 50%;
