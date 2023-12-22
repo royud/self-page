@@ -1,42 +1,39 @@
 import styled from "styled-components";
 
-import { useRouter } from "next/router";
-
-import { useState, useEffect } from "react";
+import { NextRouter, useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
+import { useFetch } from "@/hooks/useFetch";
+import { Loading } from "@/components";
 
 const ViewerContainer = dynamic(
   () => import("../../../components").then((m) => m.ViewerContainer),
   { ssr: false }
 );
 
+type Data = {
+  completedYear: number;
+  projectTitle: string;
+  projectDescription: string;
+};
+
 export default function Project() {
-  const router = useRouter();
-  const projectId = router.query.projectId;
+  const router: NextRouter = useRouter();
+  const projectId: string | string[] | undefined = router.query.projectId;
 
-  const [year, setYear] = useState(0);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    if (projectId) {
-      (async () => {
-        const data = await fetch(
-          `/api/project/post?projectid=${projectId}`
-        ).then((res) => res.json());
-        setYear(data.completedYear);
-        setTitle(data.projectTitle);
-        setDescription(data.projectDescription);
-      })();
-    }
-  }, [projectId]);
-
+  const [fetchedData, isLoading] = useFetch<Data>(
+    `/api/project/post?projectid=${projectId}`
+  );
   return (
     <Wrap>
-      <div className="year">{year}</div>
-      <div className="title">{title}</div>
-      <ViewerContainer content={description} />
+      {isLoading && <Loading />}
+      {fetchedData && (
+        <>
+          <div className="year">{fetchedData.completedYear}</div>
+          <div className="title">{fetchedData.projectTitle}</div>
+          <ViewerContainer content={fetchedData.projectDescription} />
+        </>
+      )}
     </Wrap>
   );
 }

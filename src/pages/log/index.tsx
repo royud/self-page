@@ -6,50 +6,39 @@ import dynamic from "next/dynamic";
 import { JournalListProps, JournalPostProps, ModalProps } from "@/types/pages";
 import Image from "next/image";
 import { CustomThemeContext } from "@/pages/_app";
+import { useFetch } from "@/hooks/useFetch";
+
+import { Loading } from "@/components";
+
 const ViewerContainer = dynamic(
   () => import("../../components").then((m) => m.ViewerContainer),
   { ssr: false }
 );
+type ProjectData = { projectId: number; projectTitle: string }[];
 
-// 데이터 가져오기
-const getProjectsData = async () => {
-  const data = await fetch(`/api/journal/projects`, {
-    cache: "no-store",
-  });
-  return data.json();
-};
-const getjournalsData = async (id: number) => {
-  const data = await fetch(`/api/journal/list?projectid=${id}`, {
-    cache: "no-store",
-  });
-  return data.json();
-};
-const getjournalData = async (id: number) => {
-  if (id !== 0) {
-    const data = await fetch(`/api/journal/post?journalid=${id}`, {
-      cache: "no-store",
-    });
-    return data.json();
-  }
+type JournalsData = { journalId: number; journalTitle: string }[];
+
+type JournalData = {
+  projectTitle: string;
+  journalTitle: string;
+  journalDescription: string;
 };
 
 const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
-  const [nowJournalList, setNowJournalList] =
-    useState<{ journalId: number; journalTitle: string }[]>();
+  const [fetchedData, isLoading] = useFetch<JournalsData>(
+    `/api/journal/list?projectid=${nowModalId}`
+  );
   const [isActiveList, setIsActiveList] = useState<number>(1);
 
   const [isActiveMobile, setIsActiveMobile] = useState<boolean>(false);
 
-  const journalListData = async () => {
-    const data = await getjournalsData(nowModalId);
-    if (data.length !== 0) {
-      setNowJournalId(data[0].journalId);
-      setNowJournalList(data);
+  useEffect(() => {
+    if (fetchedData && fetchedData.length !== 0) {
+      setNowJournalId(fetchedData[0].journalId);
     }
-  };
+  }, [fetchedData]);
 
   useEffect(() => {
-    journalListData();
     setIsActiveList(1);
     setIsActiveMobile(false);
   }, [nowModalId]);
@@ -68,9 +57,10 @@ const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
       >
         일지 리스트 {isActiveMobile ? "닫기" : "열기"}
       </button>
+      {isLoading && <Loading />}
       <div className="wrap">
         <ul>
-          {nowJournalList?.map((list, index) => (
+          {fetchedData?.map((list, index) => (
             <li
               key={list.journalId}
               onClick={() => {
@@ -88,31 +78,22 @@ const JournalList = ({ nowModalId, setNowJournalId }: JournalListProps) => {
 };
 
 const JournalPost = ({ nowJournalId }: JournalPostProps) => {
-  const [nowJournal, setNowJournal] = useState<{
-    projectTitle: string;
-    journalTitle: string;
-    journalDescription: string;
-  }>();
-  const journalData = async () => {
-    const data = await getjournalData(nowJournalId);
+  const [fetchedData, isLoading] = useFetch<JournalData>(
+    `/api/journal/post?journalid=${nowJournalId}`
+  );
 
-    setNowJournal(data);
-  };
-
-  useEffect(() => {
-    journalData();
-  }, [nowJournalId]);
   return (
     <StyledJournalPost>
-      {nowJournal && (
+      {isLoading && <Loading />}
+      {!isLoading && fetchedData && (
         <div className="content">
           <div className="header">
-            <div className="projectTitle">{nowJournal.projectTitle}</div>
-            <div className="journalTitle">{nowJournal.journalTitle}</div>
+            <div className="projectTitle">{fetchedData.projectTitle}</div>
+            <div className="journalTitle">{fetchedData.journalTitle}</div>
           </div>
           <div className="main">
             <div className="mainContent">
-              <ViewerContainer content={nowJournal.journalDescription} />
+              <ViewerContainer content={fetchedData.journalDescription} />
             </div>
           </div>
         </div>
@@ -155,8 +136,10 @@ const ModalContainer = ({
 export default function Log() {
   const [isActiveModal, setIsActiveModal] = useState<boolean>(false);
   const [nowModalId, setNowModalId] = useState<number>(0);
-  const [projectsData, setProjectsData] =
-    useState<{ projectId: number; projectTitle: string }[]>();
+
+  const [fetchedData, isLoading] = useFetch<ProjectData>(
+    `/api/journal/projects`
+  );
 
   const ViewProject = (projectId: number) => {
     // 모달 활성화
@@ -166,15 +149,6 @@ export default function Log() {
     setNowModalId(projectId);
   };
 
-  const projectListData = async () => {
-    const data = await getProjectsData();
-    setProjectsData(data);
-  };
-
-  useEffect(() => {
-    projectListData();
-  }, []);
-
   return (
     <Wrap $nowmodalid={nowModalId}>
       <ModalContainer
@@ -183,8 +157,9 @@ export default function Log() {
         nowModalId={nowModalId}
         setNowModalId={setNowModalId}
       />
+      {isLoading && <Loading />}
       <ul>
-        {projectsData?.map((project) => (
+        {fetchedData?.map((project) => (
           <li
             className="projectList"
             key={project.projectId}
@@ -225,6 +200,7 @@ const StyledModal = styled.div<{ $isactive: boolean }>`
     opacity 0.3s,
     width 0.3s;
   display: flex;
+  overflow-y: hidden;
   .exit {
     position: absolute;
     right: 20px;

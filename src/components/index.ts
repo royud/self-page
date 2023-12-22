@@ -5,3 +5,4 @@ export * from "./MainHeader";
 
 export * from "./Tui";
 export * from "./DarkButton";
+export * from "./Loading";

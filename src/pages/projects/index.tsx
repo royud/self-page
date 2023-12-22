@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
-
 import styled from "styled-components";
 
 import { useRouter } from "next/router";
 
 import { ROUTE_PROJECTS } from "@/const";
 import { ProjectListProps, YearListProps } from "@/types/pages";
+import { useFetch } from "@/hooks/useFetch";
+import { Loading } from "@/components";
 
-// 데이터 불러오기
-const getProjectsData = async () => {
-  const data = await fetch(`/api/project/list`, {
-    cache: "no-store",
-  });
-  return data.json();
-};
+type Data = {
+  year: number;
+  projects: ProjectListProps[];
+}[];
 
 const ProjectListContainer = ({
   projectTitle,
@@ -51,24 +48,11 @@ const YearListContainer = ({ year, projects }: YearListProps) => {
 };
 
 export default function Projects() {
-  const [projectsData, setProjectsData] = useState<
-    {
-      year: number;
-      projects: ProjectListProps[];
-    }[]
-  >();
-  const projectListData = async () => {
-    const data = await getProjectsData();
-
-    setProjectsData(data);
-  };
-
-  useEffect(() => {
-    projectListData();
-  }, []);
+  const [fetchedData, isLoading] = useFetch<Data>(`/api/project/list`);
   return (
     <Wrap>
-      {projectsData?.map((list) => (
+      {isLoading && <Loading />}
+      {fetchedData?.map((list) => (
         <YearListContainer
           key={list.year}
           year={list.year}

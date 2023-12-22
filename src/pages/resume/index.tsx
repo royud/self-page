@@ -1,43 +1,40 @@
-import { useEffect, useState } from "react";
+import { Loading } from "@/components";
+import { useFetch } from "@/hooks/useFetch";
 
 import styled from "styled-components";
 
-export default function Resume() {
-  const [name, setName] = useState<string>("");
-  const [work, setWork] = useState<string>("");
-  const [stack, setStack] = useState<string[] | undefined[]>([]);
-  const [email, setEmail] = useState<string>("");
+type Data = {
+  name: string;
+  work: string;
+  stack: string[] | undefined[];
+  email: string;
+};
 
-  useEffect(() => {
-    (async () => {
-      const data = await fetch("/api/profile").then((res) => res.json());
-      if (data) {
-        setName(data.name);
-        setWork(data.work);
-        setStack(data.stack);
-        setEmail(data.email);
-      }
-    })();
-  }, []);
+export default function Resume() {
+  const [fetchedData, isLoading] = useFetch<Data>("/api/profile");
   return (
     <Wrap>
-      <div className="introduce">
-        <div className="name">{name}</div>
-        <div className="work">{work}</div>
-        <ul className="stackList">
-          {stack.map((list) => (
-            <li key={list}>{list}</li>
-          ))}
-        </ul>
-        <div className="email">
-          <span>✉️</span>
-          {email}
+      {isLoading && <Loading />}
+      {fetchedData && (
+        <div className="introduce">
+          <div className="name">{fetchedData.name}</div>
+          <div className="work">{fetchedData.work}</div>
+          <ul className="stackList">
+            {fetchedData.stack.map((list) => (
+              <li key={list}>{list}</li>
+            ))}
+          </ul>
+          <div className="email">
+            <span>✉️</span>
+            {fetchedData.email}
+          </div>
         </div>
-      </div>
+      )}
     </Wrap>
   );
 }
 const Wrap = styled.div`
+  min-height: 600px;
   .introduce {
     padding-bottom: 30px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.objectColor};
