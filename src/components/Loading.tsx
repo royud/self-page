@@ -16,40 +16,49 @@ const Wrap = styled.div`
 `;
 
 const Spinner = styled.div`
-  @keyframes rotate {
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
     100% {
       transform: rotate(360deg);
     }
   }
-  @keyframes prixClipFix {
+
+  @keyframes rotationBack {
     0% {
-      clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
-    }
-    25% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
-    }
-    50% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
-    }
-    75% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+      transform: rotate(0deg);
     }
     100% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+      transform: rotate(-360deg);
     }
   }
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  display: inline-block;
   position: relative;
-  animation: rotate 1s linear infinite;
-  &::before {
+  border: 3px solid;
+  border-color: ${({ theme }) => theme.colors.mainTextColor}
+    ${({ theme }) => theme.colors.mainTextColor} transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  &::after {
     content: "";
     box-sizing: border-box;
     position: absolute;
-    inset: 0px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent ${({ theme }) => theme.colors.mainColor}
+      ${({ theme }) => theme.colors.mainColor};
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    border: 5px solid ${({ theme }) => theme.colors.mainColor};
-    animation: prixClipFix 2s linear infinite;
+    animation: rotationBack 0.5s linear infinite;
+    transform-origin: center center;
   }
 `;
