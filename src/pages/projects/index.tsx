@@ -89,9 +89,9 @@ const StyledProjectsList = styled.li<{ $thumnail: string }>`
   font-size: 35px;
   font-weight: bold;
   position: relative;
-  transition:
-    transform 0.3s,
-    color 0.3s;
+  overflow: hidden;
+  border-radius: 15px;
+  color: #ffffff;
   .bg {
     position: absolute;
     width: 100%;
@@ -105,21 +105,21 @@ const StyledProjectsList = styled.li<{ $thumnail: string }>`
     background-repeat: no-repeat;
     background-position: center;
     `}
-    border-radius: 15px;
+
     transition: filter 0.3s;
     filter: brightness(0.9);
+    transition:
+      transform 0.3s,
+      filter 0.3s;
   }
   .text {
     position: absolute;
     left: 14px;
     bottom: 20px;
   }
-  &:hover {
-    transform: scale(1.05);
-    color: ${({ theme }) => `${theme.colors.white}`};
-  }
   &:hover .bg {
-    filter: brightness(0.6);
+    filter: brightness(0.7);
+    transform: scale(1.05);
   }
   @media (max-width: ${({ theme }) => `${theme.mainLayout.width}px`}) {
     width: 100%;

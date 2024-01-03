@@ -83,8 +83,10 @@ const Wrap = styled.div`
 const StyledLogo = styled.div`
   width: 30px;
   height: 30px;
-  background: gray;
-  border-radius: 50%;
+  background: url("/logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   cursor: pointer;
 `;
 

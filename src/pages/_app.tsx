@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <link rel="icon" href="/logo.png" />
         <title>J-folio</title>
       </Head>
       <CustomThemeContext.Provider value={themeProps}>
